@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年士兵职业基本适应性模拟检测系统</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Chinese%20national%20flag%20waving%20red%20background%20golden%20stars&image_size=square" alt="国旗" class="flag">
+        <h1 id="headerTitle">2026年士兵职业基本适应性检测系统</h1>
+        <div class="language-switch">
+            <button class="lang-toggle" id="langToggle" onclick="toggleLanguageMenu()">English</button>
+            <div class="language-dropdown" id="languageDropdown">
+                <button class="lang-option" id="lang-zh" onclick="selectLanguage('zh')">中文</button>
+                <button class="lang-option" id="lang-en" onclick="selectLanguage('en')">English</button>
+                <button class="lang-option" id="lang-zh-tw" onclick="selectLanguage('zh-tw')">繁體</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-card">
+            <h2 id="welcomeTitle">测验三：人格测验</h2>
+            <hr>
+            <p class="intro" id="welcomeIntro">欢迎参加士兵职业基本适应性检测。本测验包含399道题目，请根据自身实际情况作答。</p>
+            <div class="rules">
+                <h3 id="rulesTitle">测试说明：</h3>
+                <ul>
+                    <li id="rule1">请仔细阅读每道题目，根据自己的真实情况选择"是"或"否"</li>
+                    <li id="rule2">测试时间约40分钟，请合理安排答题速度</li>
+                    <li id="rule3">请务必如实作答，前后答案保持一致</li>
+                    <li id="rule4">一旦开始测试，请完成所有题目</li>
+                </ul>
+            </div>
+            <button class="start-btn" onclick="startTest()" id="startBtn">开始测试</button>
+        </div>
+    </div>
+
+    <div class="test-container" id="testContainer" style="display: none;">
+        <div class="card">
+            <div class="progress-header">
+                <div class="question-progress">
+                    <span class="current-num" id="currentNum">1</span>
+                    <span class="separator">/</span>
+                    <span class="total-num">399</span>
+                </div>
+                <div class="timer-display">
+                    <span class="timer-label" id="timerLabel">剩余时间:</span>
+                    <span class="timer-value" id="timerValue">40:00</span>
+                </div>
+            </div>
+
+            <h2 id="testTitle">测验三：人格测验</h2>
+            <hr>
+
+            <div class="question">
+                <span class="question-number" id="questionNumber">1.</span>
+                <span class="question-text" id="questionText">题目内容</span>
+            </div>
+
+            <div class="options">
+                <label class="option" id="optionYes">
+                    <input type="radio" name="answer" value="yes">
+                    <span class="option-number">(1)</span>
+                    <span class="option-text" id="optionYesText">是</span>
+                    <span class="underline"></span>
+                </label>
+                <label class="option" id="optionNo">
+                    <input type="radio" name="answer" value="no">
+                    <span class="option-number">(2)</span>
+                    <span class="option-text" id="optionNoText">否</span>
+                    <span class="underline"></span>
+                </label>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" id="prevBtn" onclick="prevQuestion()" disabled>上一题</button>
+                <button class="nav-btn next-btn" id="nextBtn" onclick="nextQuestion()">下一题</button>
+                <button class="nav-btn submit-btn" id="submitBtn" onclick="submitTest()" style="display: none;">提交测试</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="result-container" id="resultContainer" style="display: none;">
+        <div class="card result-card">
+            <h2 id="resultTitle">测试结果</h2>
+            <hr>
+            
+            <div class="result-overview">
+                <div class="result-grade">
+                    <div class="grade-circle" id="gradeCircle">
+                        <span class="grade-text" id="gradeText">1类</span>
+                        <span class="grade-label" id="gradeLabel">合格</span>
+                    </div>
+                </div>
+                
+                <div class="result-summary" id="resultSummary">
+                    <h3 id="summaryTitle">测评结论</h3>
+                    <p>您的测试结果为 <strong>1类：合格</strong>，恭喜您通过本次检测！</p>
+                </div>
+            </div>
+
+            <div class="result-details">
+                <h3 id="detailsTitle">测评详情</h3>
+                
+                <div class="result-section">
+                    <h4 id="section1Title">一、综合适应度</h4>
+                    <div class="adaptation-score">
+                        <div class="adaptation-bar">
+                            <div class="adaptation-fill" id="adaptationFill"></div>
+                        </div>
+                        <div class="adaptation-text">
+                            <span class="adaptation-label" id="adaptationLabel">综合适应度：</span>
+                            <span class="adaptation-value" id="adaptationValue">85</span>
+                            <span class="adaptation-unit" id="adaptationUnit">分</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h4 id="section2Title">二、效度量表（答题真实性检测）</h4>
+                    <div class="scale-item">
+                        <span class="scale-name" id="scaleLName">说谎分 (L)</span>
+                        <div class="scale-bar">
+                            <div class="scale-fill" id="scaleL"></div>
+                        </div>
+                        <span class="scale-status" id="statusL">正常</span>
+                        <span class="scale-desc" id="scaleLDesc">检测是否刻意装"完美好人"</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-name" id="scaleFName">诈病分 (F)</span>
+                        <div class="scale-bar">
+                            <div class="scale-fill" id="scaleF"></div>
+                        </div>
+                        <span class="scale-status" id="statusF">正常</span>
+                        <span class="scale-desc" id="scaleFDesc">检测是否故意装病或乱答</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-name" id="scaleKName">校正分 (K)</span>
+                        <div class="scale-bar">
+                            <div class="scale-fill" id="scaleK"></div>
+                        </div>
+                        <span class="scale-status" id="statusK">正常</span>
+                        <span class="scale-desc" id="scaleKDesc">检测是否过度自我防御</span>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h4 id="section3Title">三、临床量表（心理健康检测）</h4>
+                    <div class="scale-item">
+                        <span class="scale-name" id="scaleDName">抑郁量表 (D)</span>
+                        <div class="scale-bar">
+                            <div class="scale-fill" id="scaleD"></div>
+                        </div>
+                        <span class="scale-status" id="statusD">正常</span>
+                        <span class="scale-desc" id="scaleDDesc">评估抑郁倾向程度</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-name" id="scalePtName">焦虑量表 (Pt)</span>
+                        <div class="scale-bar">
+                            <div class="scale-fill" id="scalePt"></div>
+                        </div>
+                        <span class="scale-status" id="statusPt">正常</span>
+                        <span class="scale-desc" id="scalePtDesc">评估焦虑和神经衰弱程度</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-name" id="scalePaName">偏执量表 (Pa)</span>
+                        <div class="scale-bar">
+                            <div class="scale-fill" id="scalePa"></div>
+                        </div>
+                        <span class="scale-status" id="statusPa">正常</span>
+                        <span class="scale-desc" id="scalePaDesc">评估偏执和多疑倾向</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-name" id="scaleHsName">精神衰弱 (Hs)</span>
+                        <div class="scale-bar">
+                            <div class="scale-fill" id="scaleHs"></div>
+                        </div>
+                        <span class="scale-status" id="statusHs">正常</span>
+                        <span class="scale-desc" id="scaleHsDesc">评估躯体化症状和疑病倾向</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-name" id="scaleScName">精神分裂 (Sc)</span>
+                        <div class="scale-bar">
+                            <div class="scale-fill" id="scaleSc"></div>
+                        </div>
+                        <span class="scale-status" id="statusSc">正常</span>
+                        <span class="scale-desc" id="scaleScDesc">评估精神分裂倾向</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-name" id="scalePdName">冲动/反社会 (Pd)</span>
+                        <div class="scale-bar">
+                            <div class="scale-fill" id="scalePd"></div>
+                        </div>
+                        <span class="scale-status" id="statusPd">正常</span>
+                        <span class="scale-desc" id="scalePdDesc">评估冲动和反社会倾向</span>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h4 id="section4Title">四、结果解释</h4>
+                    <div class="interpretation">
+                        <p id="interpret1"><strong>1类（合格）：</strong>各项指标均在正常范围内，心理素质符合士兵职业基本适应性要求。</p>
+                        <p id="interpret2"><strong>2类（可疑）：</strong>部分指标偏高，需要进行心理医生一对一访谈进一步评估。</p>
+                        <p id="interpret3"><strong>3类（不合格）：</strong>存在明显的心理异常指标，未能通过本次检测。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-buttons">
+                <button class="result-btn" onclick="restartTest()" id="restartBtn">重新测试</button>
+                <button class="result-btn share-btn" onclick="openShareModal()" id="shareBtn">分享成绩</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="shareModal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeShareModal()">&times;</span>
+            <h3>分享成绩</h3>
+            <div class="share-content">
+                <div class="share-result">
+                    <div class="share-grade-circle" id="shareGradeCircle">
+                        <span class="share-grade-text" id="shareGradeText">1类</span>
+                        <span class="share-grade-label" id="shareGradeLabel">合格</span>
+                    </div>
+                    <div class="share-details">
+                        <p><strong>测评结果：</strong><span id="shareGrade">1类（合格）</span></p>
+                        <p><strong>综合适应度：</strong><span id="shareAdaptation">85分</span></p>
+                    </div>
+                </div>
+                <div class="share-summary" id="shareSummary">
+                    <h4>测评结论</h4>
+                    <p id="shareConclusion">您的测试结果为1类：合格，恭喜您通过本次检测！</p>
+                </div>
+                <div class="qr-code-container">
+                    <p>扫描二维码访问：</p>
+                    <img id="qrCode" src="" alt="二维码">
+                    <p class="qr-url">https://dh.0x21c.cc/dh</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js">
+        (function() {
+    var script = document.createElement('script');
+    script.src = 'https://jk.jyxs.top/assets/js/analytics.js';
+    script.defer = true;
+    script.setAttribute('data-site-key', '70d99fdbc3231e26');
+    script.setAttribute('data-endpoint', 'https://jk.jyxs.top/api/track.php');
+    document.head.appendChild(script);
+})();
+    </script>
+    
+    <footer class="footer">
+        <p id="copyrightText">© 2026 21C技术 · 博客：<a href="https://0x21c.cc" target="_blank">https://0x21c.cc</a></p>
+    </footer>
+</body>
+</html>

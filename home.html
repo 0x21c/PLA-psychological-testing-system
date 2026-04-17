@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+     <link rel="icon" type="image/x-icon" href="gq.jpeg" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年士兵职业基本适应性模拟检测系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #e0e5ec 0%, #c8d6e5 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(180deg, #0066cc 0%, #004499 100%);
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .flag {
+            width: 120px;
+            height: 80px;
+            margin-right: 30px;
+            border-radius: 8px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 36px;
+            color: #ffcc00;
+            text-shadow: 3px 3px 0 #996600, -1px -1px 0 #996600;
+            font-weight: bold;
+            letter-spacing: 4px;
+            flex: 1;
+        }
+
+        .language-switch {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .lang-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+
+        .lang-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background: rgba(0, 68, 153, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            z-index: 100;
+            min-width: 120px;
+        }
+
+        .language-dropdown.show {
+            display: flex;
+        }
+
+        .lang-option {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .lang-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-option.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 120px);
+            padding: 40px 20px;
+        }
+
+        .badge {
+            background: rgba(0, 102, 204, 0.15);
+            border: 1px solid rgba(0, 102, 204, 0.3);
+            color: #0066cc;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 42px;
+            color: #0066cc;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 6px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            border: none;
+            padding: 16px 60px;
+            font-size: 20px;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 25px rgba(0, 102, 204, 0.4);
+            margin-bottom: 60px;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(0, 102, 204, 0.5);
+        }
+
+        .features {
+            display: flex;
+            gap: 60px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            min-width: 120px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+        }
+
+        .feature-text {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #888;
+            font-size: 13px;
+            background: rgba(0, 68, 153, 0.1);
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #0066cc;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: row;
+                padding: 10px 15px;
+                justify-content: center;
+            }
+
+            .flag {
+                display: none;
+            }
+
+            .header h1 {
+                font-size: 18px;
+                text-align: center;
+                letter-spacing: 2px;
+            }
+
+            h1 {
+                font-size: 28px;
+                letter-spacing: 4px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .description {
+                font-size: 14px;
+                padding: 20px;
+                margin: 20px 10px 40px;
+            }
+
+            .start-btn {
+                padding: 14px 40px;
+                font-size: 18px;
+            }
+
+            .features {
+                gap: 30px;
+            }
+
+            .feature-item {
+                min-width: 100px;
+            }
+
+            .feature-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .language-switch {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://sb.0x21c.cc/gq.jpeg" alt="国旗" class="flag">
+        <h1 id="title">2026年士兵职业基本适应性模拟检测系统</h1>
+        <div class="language-switch">
+            <button class="lang-toggle" id="langToggle" onclick="toggleLanguageMenu()">中文</button>
+            <div class="language-dropdown" id="languageDropdown">
+                <button class="lang-option active" id="lang-zh" onclick="selectLanguage('zh')">中文</button>
+                <button class="lang-option" id="lang-en" onclick="selectLanguage('en')">English</button>
+                <button class="lang-option" id="lang-zh-tw" onclick="selectLanguage('zh-tw')">繁體</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="badge" id="badge">21C技术出品</div>
+        
+        <h1 id="mainTitle">士兵职业基本适应性检测</h1>
+        
+        <p class="subtitle" id="subtitle">探索你的心理素质，解锁职业潜能</p>
+        
+        <p class="description" id="description">
+            基于专业心理测评标准开发，包含399道科学题目，智能自适应检测机制。
+            通过多维度评估，全面了解您的心理状态和职业适应性，为军旅生涯提供科学参考。
+        </p>
+        
+        <button class="start-btn" id="startBtn" onclick="startTest()">开始测试</button>
+        
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-icon">🧠</div>
+                <span class="feature-text" id="feature1">9大测评维度</span>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📝</div>
+                <span class="feature-text" id="feature2">399道专业题目</span>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <span class="feature-text" id="feature3">智能自适应检测</span>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📊</div>
+                <span class="feature-text" id="feature4">专业测评报告</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-links">
+            <a href="https://0x21c.cc" target="_blank" id="footerAuthor">作者：21C技术</a>
+            <a href="https://0x21c.cc" target="_blank" id="footerResource">解忧资源网</a>
+            <a href="https://0x21c.cc" target="_blank" id="footerTool">解忧工具网</a>
+        </div>
+        <p id="copyrightText">© 2026 21C技术 版权所有</p>
+    </div>
+
+    <script>
+        let currentLang = 'zh';
+
+        const translations = {
+            'zh': {
+                'badge': '21C技术出品',
+                'title': '2026年士兵职业基本适应性模拟检测系统',
+                'mainTitle': '士兵职业基本适应性检测',
+                'subtitle': '探索你的心理素质，解锁职业潜能',
+                'description': '基于专业心理测评标准开发，包含399道科学题目，智能自适应检测机制。通过多维度评估，全面了解您的心理状态和职业适应性，为军旅生涯提供科学参考。',
+                'startBtn': '开始测试',
+                'feature1': '9大测评维度',
+                'feature2': '399道专业题目',
+                'feature3': '智能自适应检测',
+                'feature4': '专业测评报告',
+                'footerAuthor': '作者：21C技术',
+                'footerResource': '解忧资源网',
+                'footerTool': '解忧工具网',
+                'copyrightText': '© 2026 21C技术 版权所有'
+            },
+            'en': {
+                'badge': '21C Technology',
+                'title': '2026 Soldier Occupational Basic Adaptability Simulation Test System',
+                'mainTitle': 'Soldier Career Adaptability Test',
+                'subtitle': 'Explore your psychological quality, unlock career potential',
+                'description': 'Based on professional psychological assessment standards, including 399 scientific questions and intelligent adaptive testing mechanism. Through multi-dimensional assessment, comprehensively understand your psychological state and career adaptability, providing scientific reference for military career.',
+                'startBtn': 'Start Test',
+                'feature1': '9 Assessment Dimensions',
+                'feature2': '399 Professional Questions',
+                'feature3': 'Intelligent Adaptive Testing',
+                'feature4': 'Professional Report',
+                'footerAuthor': 'Author: 21C Technology',
+                'footerResource': 'Jieyou Resource',
+                'footerTool': 'Jieyou Tools',
+                'copyrightText': '© 2026 21C Technology All Rights Reserved'
+            },
+            'zh-tw': {
+                'badge': '21C技術出品',
+                'title': '2026年士兵職業基本適應性模擬檢測系統',
+                'mainTitle': '士兵職業基本適應性檢測',
+                'subtitle': '探索你的心理素質，解鎖職業潛能',
+                'description': '基於專業心理測評標準開發，包含399道科學題目，智慧自適應檢測機制。通過多維度評估，全面了解您的心理狀態和職業適應性，為軍旅生涯提供科學參考。',
+                'startBtn': '開始測試',
+                'feature1': '9大測評維度',
+                'feature2': '399道專業題目',
+                'feature3': '智慧自適應檢測',
+                'feature4': '專業測評報告',
+                'footerAuthor': '作者：21C技術',
+                'footerResource': '解憂資源網',
+                'footerTool': '解憂工具網',
+                'copyrightText': '© 2026 21C技術 版權所有'
+            }
+        };
+
+        function toggleLanguageMenu() {
+            const dropdown = document.getElementById('languageDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function selectLanguage(lang) {
+            currentLang = lang;
+            updateContent();
+            const dropdown = document.getElementById('languageDropdown');
+            dropdown.classList.remove('show');
+
+            const langNames = {
+                'zh': '中文',
+                'en': 'English',
+                'zh-tw': '繁體'
+            };
+            document.getElementById('langToggle').textContent = langNames[lang];
+
+            const options = document.querySelectorAll('.lang-option');
+            options.forEach(opt => opt.classList.remove('active'));
+            document.getElementById(`lang-${lang}`).classList.add('active');
+        }
+
+        function updateContent() {
+            const langData = translations[currentLang];
+            Object.keys(langData).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = langData[key];
+                }
+            });
+        }
+
+        function startTest() {
+            window.location.href = `index.html?lang=${currentLang}`;
+        }
+
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('languageDropdown');
+            const toggleBtn = document.getElementById('langToggle');
+            if (dropdown && !dropdown.contains(event.target) && event.target !== toggleBtn) {
+                dropdown.classList.remove('show');
+            }
+        });
+        
+(function() {
+    var script = document.createElement('script');
+    script.src = 'https://jk.jyxs.top/assets/js/analytics.js';
+    script.defer = true;
+    script.setAttribute('data-site-key', '70d99fdbc3231e26');
+    script.setAttribute('data-endpoint', 'https://jk.jyxs.top/api/track.php');
+    document.head.appendChild(script);
+})();
+
+    </script>
+</body>
+</html>
