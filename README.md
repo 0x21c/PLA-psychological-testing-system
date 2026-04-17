@@ -98,7 +98,7 @@ MIT License
 ![测试页面-英文](https://github.com/0x21c/PLA-psychological-testing-system/blob/main/english.png)
 
 ### 测评报告结果
-![测评报告](https://github.com/0x21c/PLA-psychological-testing-system/blob/main/Screenshot_20260417_145350_com.huawei.browser.jpg https://github.com/0x21c/PLA-psychological-testing-system/blob/main/Screenshot_20260417_145358_com.huawei.browser.jpghttps://github.com/0x21c/PLA-psychological-testing-system/blob/main/Screenshot_20260417_145402_com.huawei.browser.jpg)
+![测评报告](https://github.com/0x21c/PLA-psychological-testing-system/blob/main/Screenshot_20260417_145350_com.huawei.browser.jpg )(https://github.com/0x21c/PLA-psychological-testing-system/blob/main/Screenshot_20260417_145358_com.huawei.browser.jpg)(https://github.com/0x21c/PLA-psychological-testing-system/blob/main/Screenshot_20260417_145402_com.huawei.browser.jpg)
 
 ### 分享功能（含二维码）
 ![分享功能](https://github.com/0x21c/PLA-psychological-testing-system/blob/main/Screenshot_20260417_145414_com.huawei.browser.jpg)
