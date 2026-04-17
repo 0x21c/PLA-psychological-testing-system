@@ -101,7 +101,7 @@ MIT License
 ![测评报告](https://raw.githubusercontent.com/yourusername/soldier-adaptability-test/main/screenshots/result.png)
 
 ### 分享功能（含二维码）
-![分享功能](https://raw.githubusercontent.com/yourusername/soldier-adaptability-test/main/screenshots/share.png)
+![分享功能](https://github.com/0x21c/PLA-psychological-testing-system/blob/main/Screenshot_20260417_145414_com.huawei.browser.jpg)
 
 #### 功能预览
 
