@@ -3,6 +3,8 @@
 🇨🇳 [中文](README.md) | 🇬🇧 [English](README.en.md)
 
 一个基于Web的士兵职业基本适应性检测系统，支持多语言切换（中文、英文、繁体中文），采用智能自适应测试机制。
+## 线上测试地址/Online test address:https://sb.0x21c.cc
+
 
 ## 功能特性
 
