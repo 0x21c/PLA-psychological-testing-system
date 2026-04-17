@@ -89,13 +89,13 @@ MIT License
 ## 截图展示
 
 ### 首页入口
-![首页入口](https://raw.githubusercontent.com/yourusername/soldier-adaptability-test/main/screenshots/home.png)
+![首页入口](https://github.com/0x21c/PLA-psychological-testing-system/blob/main/index.png))
 
 ### 测试页面（中文）
-![测试页面-中文](https://raw.githubusercontent.com/yourusername/soldier-adaptability-test/main/screenshots/test-zh.png)
+![测试页面-中文](https://github.com/0x21c/PLA-psychological-testing-system/blob/main/21.png)
 
 ### 测试页面（英文）
-![测试页面-英文](https://raw.githubusercontent.com/yourusername/soldier-adaptability-test/main/screenshots/test-en.png)
+![测试页面-英文](https://github.com/0x21c/PLA-psychological-testing-system/blob/main/english.png)
 
 ### 测评报告结果
 ![测评报告](https://raw.githubusercontent.com/yourusername/soldier-adaptability-test/main/screenshots/result.png)
