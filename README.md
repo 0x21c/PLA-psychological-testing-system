@@ -38,7 +38,7 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/yourusername/soldier-adaptability-test.git
+git clone https://github.com/0x21c/PLA-psychological-testing-system
 
 # 进入项目目录
 cd soldier-adaptability-test
